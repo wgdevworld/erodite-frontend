@@ -15,16 +15,8 @@ export default function RootNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="LoginMain">
-        <Stack.Screen
-          name="LoginMain"
-          component={LoginMain}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="HomeMain"
-          component={HomeMain}
-          options={{ headerShown: false }}
-        />
+        <Stack.Screen name="LoginMain" component={LoginMain} options={{ headerShown: false }} />
+        <Stack.Screen name="HomeMain" component={HomeMain} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
