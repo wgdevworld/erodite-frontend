@@ -14,6 +14,7 @@ const colors = {
   gray900: '#1E2024',
   gray950: '#121416',
   red1: '#dd1818',
+  coral1: '#ec9392',
 };
 
 export default colors;
