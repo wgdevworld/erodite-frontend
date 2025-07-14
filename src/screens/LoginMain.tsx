@@ -4,8 +4,14 @@ import LinearGradient from 'react-native-linear-gradient';
 import globalStyles, { h, w } from '../styles/globalStyles';
 import { BlurView } from '@react-native-community/blur';
 import assets from '../../assets';
+import useFirebaseAuth from '../hooks/useFirebaseAuth';
+import { useState } from 'react';
 
 const LoginMain = () => {
+  const { createUserWithEmail } = useFirebaseAuth();
+
+  const [emailInput, setEmailInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
   return (
     <>
       <LinearGradient
@@ -24,6 +30,8 @@ const LoginMain = () => {
               textContentType="emailAddress"
               placeholder="이메일"
               placeholderTextColor={colors.gray700}
+              value={emailInput}
+              onChangeText={setEmailInput}
             />
           </View>
           <View style={styles.inputContainter}>
@@ -34,6 +42,8 @@ const LoginMain = () => {
               placeholder="비밀번호"
               secureTextEntry
               placeholderTextColor={colors.gray700}
+              value={passwordInput}
+              onChangeText={setPasswordInput}
             />
           </View>
           <View style={styles.emailBtnContainer}>
@@ -43,6 +53,9 @@ const LoginMain = () => {
                 backgroundColor: colors.white,
                 borderTopLeftRadius: w(16),
                 borderBottomLeftRadius: w(16),
+              }}
+              onPress={() => {
+                createUserWithEmail(emailInput, passwordInput);
               }}
             >
               <Text style={{ ...globalStyles.body1Bold, color: colors.gray900 }}>회원가입</Text>
