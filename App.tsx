@@ -7,11 +7,11 @@
 
 import RootNavigator from './src/navigation/RootNavigator';
 import { ApolloProvider } from '@apollo/client';
-import { client } from './src/api/client';
+import { apolloClient } from './src/api/client';
 
 const App = () => {
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <RootNavigator />
     </ApolloProvider>
   );
