@@ -1,7 +1,7 @@
 import { MMKV } from 'react-native-mmkv';
 import { PersistStorage, StorageValue } from 'zustand/middleware';
 
-const mmkv = new MMKV();
+export const mmkv = new MMKV();
 
 const storage: PersistStorage<any> = {
   getItem: (name) => {

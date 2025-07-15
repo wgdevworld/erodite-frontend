@@ -5,6 +5,8 @@ export const CREATE_USER_MUTATION = gql`
     createUser(email: $email, firebaseUid: $firebaseUid) {
       id
       email
+      createdAt
+      updatedAt
     }
   }
 `;

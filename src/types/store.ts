@@ -3,5 +3,4 @@ export interface User {
   createdAt: Date;
   updatedAt: Date;
   email: string;
-  firebaseUid: string;
 }
