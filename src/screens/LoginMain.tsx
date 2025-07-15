@@ -8,7 +8,7 @@ import useFirebaseAuth from '../hooks/useFirebaseAuth';
 import { useState } from 'react';
 
 const LoginMain = () => {
-  const { createUserWithEmail } = useFirebaseAuth();
+  const { createUserWithEmail, loginWithEmail } = useFirebaseAuth();
 
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
@@ -67,6 +67,7 @@ const LoginMain = () => {
                 borderTopRightRadius: w(16),
                 borderBottomRightRadius: w(16),
               }}
+              onPress={() => loginWithEmail(emailInput, passwordInput)}
             >
               <Text style={globalStyles.body1Bold}>로그인</Text>
             </TouchableOpacity>

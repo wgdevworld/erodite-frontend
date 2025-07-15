@@ -7,6 +7,7 @@ import { useApolloClient, useMutation } from '@apollo/client';
 import { CREATE_USER_MUTATION } from '../api/user/mutations';
 import { GET_USER_QUERY } from '../api/user/queries';
 import { useUserStore } from '../store/userStore';
+import { Alert } from 'react-native';
 
 const useFirebaseAuth = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -23,10 +24,10 @@ const useFirebaseAuth = () => {
     }
 
     try {
-      const { data: backendUser } = await client.query({ query: GET_USER_QUERY });
+      const { data: user } = await client.query({ query: GET_USER_QUERY });
 
-      if (backendUser) {
-        setUser(backendUser.getUser);
+      if (user) {
+        setUser(user.getUser);
         navigation.navigate('HomeMain');
         // TODO: here, we want to fill in zustand
         // if done onboarding, go to home
@@ -59,7 +60,32 @@ const useFirebaseAuth = () => {
     }
   };
 
-  return { initialize, createUserWithEmail };
+  const handleFirebaseLogin = async () => {
+    try {
+      const { data: user } = await client.query({ query: GET_USER_QUERY });
+
+      if (user?.getUser) {
+        setUser(user.getUser);
+        //TODO: here, we must check if the user has completed onboarding
+        navigation.navigate('HomeMain');
+      } else {
+        throw new Error("User doesn't exist");
+      }
+    } catch (err) {
+      logError('Login error', err);
+    }
+  };
+
+  const loginWithEmail = async (email: string, password: string) => {
+    try {
+      await auth().signInWithEmailAndPassword(email, password);
+      await handleFirebaseLogin();
+    } catch (err) {
+      Alert.alert('이메일 또는 비밀번호가 잘못 되었습니다.');
+    }
+  };
+
+  return { initialize, createUserWithEmail, loginWithEmail };
 };
 
 export default useFirebaseAuth;
