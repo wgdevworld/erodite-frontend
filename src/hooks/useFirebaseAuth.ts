@@ -3,12 +3,16 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { logError, logInfo } from '../tools/Log';
 import { RootStackParamList } from '../navigation/navigation';
-import { useMutation } from '@apollo/client';
+import { useApolloClient, useMutation } from '@apollo/client';
 import { CREATE_USER_MUTATION } from '../api/user/mutations';
+import { GET_USER_QUERY } from '../api/user/queries';
+import { useUserStore } from '../store/userStore';
 
 const useFirebaseAuth = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const client = useApolloClient();
   const [createUserWithEmailAndPassword] = useMutation(CREATE_USER_MUTATION);
+  const { setUser } = useUserStore();
 
   const initialize = async () => {
     const firebaseUser = auth().currentUser;
@@ -18,14 +22,13 @@ const useFirebaseAuth = () => {
       return;
     }
 
-    const idToken = await firebaseUser.getIdToken();
-
     try {
-      //TODO: Send token to backend
-
-      const backendUser = null;
+      const { data: backendUser } = await client.query({ query: GET_USER_QUERY });
 
       if (backendUser) {
+        setUser(backendUser.getUser);
+        navigation.navigate('HomeMain');
+        // TODO: here, we want to fill in zustand
         // if done onboarding, go to home
         // if not, go to onboarding
       } else {
@@ -34,7 +37,6 @@ const useFirebaseAuth = () => {
       }
     } catch (err) {
       logError('Error verifying firebase user', err);
-      navigation.navigate('LoginMain');
     }
   };
 
@@ -50,6 +52,7 @@ const useFirebaseAuth = () => {
         },
       });
       const backendUser = data?.createUser;
+      //TODO: here we probably want to fill in redux
       logInfo(backendUser);
     } catch (err) {
       logError('Error during email signup', err);
