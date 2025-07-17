@@ -10,3 +10,14 @@ export const CREATE_USER_MUTATION = gql`
     }
   }
 `;
+
+export const GET_OR_CREATE_USER_MUTATION = gql`
+  mutation GetOrCreateUser($email: String!, $firebaseUid: String!) {
+    getOrCreateUser(email: $email, firebaseUid: $firebaseUid) {
+      id
+      email
+      createdAt
+      updatedAt
+    }
+  }
+`;

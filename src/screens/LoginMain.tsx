@@ -8,7 +8,7 @@ import useFirebaseAuth from '../hooks/useFirebaseAuth';
 import { useState } from 'react';
 
 const LoginMain = () => {
-  const { createUserWithEmail, loginWithEmail } = useFirebaseAuth();
+  const { createUserWithEmail, loginWithEmail, loginWithGoogle } = useFirebaseAuth();
 
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
@@ -82,7 +82,7 @@ const LoginMain = () => {
           </Text>
           <View style={styles.divider} />
         </View>
-        <TouchableOpacity style={styles.socialLoginBtn}>
+        <TouchableOpacity style={styles.socialLoginBtn} onPress={loginWithGoogle}>
           <Image source={assets.images.google_icon} style={styles.socialLoginImage} />
           <Text style={styles.socialLoginText}>구글로 계속하기</Text>
         </TouchableOpacity>
