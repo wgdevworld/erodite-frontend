@@ -55,8 +55,24 @@ const useFirebaseAuth = () => {
     try {
       await auth().createUserWithEmailAndPassword(email, password);
       await getOrCreateUser();
-    } catch (err) {
-      logError('Error during email signup', err);
+    } catch (err: any) {
+      logError('Error during createUserWithEmail', err);
+      switch (err.code) {
+        case 'auth/email-already-in-use':
+          Alert.alert('이미 사용 중인 이메일입니다.');
+          break;
+        case 'auth/invalid-email':
+          Alert.alert('유효하지 않은 이메일 형식입니다.');
+          break;
+        case 'auth/weak-password':
+          Alert.alert('비밀번호가 너무 약합니다. 더 강한 비밀번호를 입력해주세요.');
+          break;
+        case 'auth/network-request-failed':
+          Alert.alert('네트워크 오류가 발생했습니다. 인터넷 연결을 확인해주세요.');
+          break;
+        default:
+          Alert.alert('오류가 발생했습니다. 나중에 다시 시도해주세요.');
+      }
     }
   };
 
