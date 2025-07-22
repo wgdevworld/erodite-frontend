@@ -4,4 +4,5 @@ export type RootStackParamList = {
   InitialConfigMain: undefined;
   LoginMain: undefined;
   HomeMain: undefined;
+  OnboardingMain: undefined;
 };

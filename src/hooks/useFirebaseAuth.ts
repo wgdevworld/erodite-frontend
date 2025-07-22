@@ -38,8 +38,7 @@ const useFirebaseAuth = () => {
 
       if (user) {
         setUser(user.getUser);
-        navigation.navigate('HomeMain');
-        // TODO: here, we want to fill in zustand
+        navigation.navigate('OnboardingMain');
         // if done onboarding, go to home
         // if not, go to onboarding
       } else {
@@ -100,7 +99,7 @@ const useFirebaseAuth = () => {
 
   const onLoginFinished = async (user: User) => {
     logInfo('Logged in as ', user);
-    navigation.navigate('HomeMain');
+    navigation.navigate('OnboardingMain');
     //TODO: here, we must check if the user has completed onboarding
   };
 
