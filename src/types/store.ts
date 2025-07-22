@@ -4,3 +4,9 @@ export interface User {
   updatedAt: Date;
   email: string;
 }
+
+export enum GENDER_ENUM {
+  MALE = 'male',
+  FEMALE = 'female',
+  OTHER = 'other',
+}
