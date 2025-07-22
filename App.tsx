@@ -8,11 +8,14 @@
 import RootNavigator from './src/navigation/RootNavigator';
 import { ApolloProvider } from '@apollo/client';
 import { apolloClient } from './src/api/client';
+import AppProviders from './src/context/Providers';
 
 const App = () => {
   return (
     <ApolloProvider client={apolloClient}>
-      <RootNavigator />
+      <AppProviders>
+        <RootNavigator />
+      </AppProviders>
     </ApolloProvider>
   );
 };
