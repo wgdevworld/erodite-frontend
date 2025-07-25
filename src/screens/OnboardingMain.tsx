@@ -7,6 +7,7 @@ import colors from '../styles/colors';
 import OnboardingGenderPage from '../components/Onboarding/OnboardingGenderPage';
 import OnboardingBirthdayPage from '../components/Onboarding/OnboardingBirthdayPage';
 import { useOnboarding } from '../context/OnboardingContext';
+import OnboardingIntentPage from '../components/Onboarding/OnboardingIntentPage';
 
 enum ONBOARDING_PAGE_ENUM {
   BIRTHDAY = 'birthday',
@@ -35,6 +36,7 @@ const OnboardingMain = () => {
       page: ONBOARDING_PAGE_ENUM.GENDER,
       component: <OnboardingGenderPage />,
     },
+    { page: ONBOARDING_PAGE_ENUM.INTENT, component: <OnboardingIntentPage /> },
   ];
 
   useEffect(() => {
@@ -94,19 +96,19 @@ const OnboardingMain = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: w(16),
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     height: w(24),
+    marginHorizontal: w(16),
   },
   progressBarContainer: {
     height: h(3),
     backgroundColor: colors.gray300,
     borderRadius: w(99),
-    width: w(243),
+    width: w(273),
   },
   progressBarFill: {
     height: h(3),

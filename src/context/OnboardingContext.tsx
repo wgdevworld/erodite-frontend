@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
-import { GENDER_ENUM } from '../types/store';
+import React, { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
+import { CURIOUS_TOPICS_ENUM, GENDER_ENUM, INSTALL_INTENT_ENUM } from '../types/store';
 
 type OnboardingContextType = {
   curPage: number;
@@ -11,6 +11,10 @@ type OnboardingContextType = {
   setGender: (gender: GENDER_ENUM) => void;
   dateOfBirth: Date | null;
   setDateOfBirth: (date: Date) => void;
+  selectedIntent: INSTALL_INTENT_ENUM[];
+  setSelectedIntent: Dispatch<SetStateAction<INSTALL_INTENT_ENUM[]>>;
+  topicOrder: CURIOUS_TOPICS_ENUM[];
+  setTopicOrder: Dispatch<SetStateAction<CURIOUS_TOPICS_ENUM[]>>;
 };
 
 const OnboardingContext = createContext<OnboardingContextType | undefined>(undefined);
@@ -19,6 +23,8 @@ export const OnboardingProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const [curPage, setCurPage] = useState(0);
   const [gender, setGender] = useState<GENDER_ENUM | null>(null);
   const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
+  const [selectedIntent, setSelectedIntent] = useState<INSTALL_INTENT_ENUM[]>([]);
+  const [topicOrder, setTopicOrder] = useState<CURIOUS_TOPICS_ENUM[]>([]);
 
   const onPressBack = () => {
     setCurPage((prev) => Math.max(0, prev - 1));
@@ -37,8 +43,12 @@ export const OnboardingProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         onPressNext,
         gender,
         dateOfBirth,
+        topicOrder,
+        selectedIntent,
         setGender,
         setDateOfBirth,
+        setSelectedIntent,
+        setTopicOrder,
       }}
     >
       {children}
