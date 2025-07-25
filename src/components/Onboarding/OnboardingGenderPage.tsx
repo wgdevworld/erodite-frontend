@@ -2,23 +2,30 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import globalStyles, { h, w } from '../../styles/globalStyles';
 import colors from '../../styles/colors';
 import { GENDER_ENUM } from '../../types/store';
-import { JSX } from 'react';
 import Icon from '@react-native-vector-icons/ionicons';
 import { useOnboarding } from '../../context/OnboardingContext';
 
 type GenderChoices = {
   gender: GENDER_ENUM;
-  icon: JSX.Element;
+  icon: string;
   title: string;
 };
 
 const OnboardingGenderPage = () => {
-  const { gender, setGender } = useOnboarding();
+  const { onPressNext, gender, setGender } = useOnboarding();
 
   const genderChoices: GenderChoices[] = [
-    { gender: GENDER_ENUM.MALE, icon: <Icon name="male-outline" />, title: '남성' },
-    { gender: GENDER_ENUM.FEMALE, icon: <Icon name="female-outline" />, title: '여성' },
-    { gender: GENDER_ENUM.OTHER, icon: <Icon name="male-female-outline" />, title: '기타' },
+    { gender: GENDER_ENUM.MALE, icon: 'male-outline', title: '남성' },
+    {
+      gender: GENDER_ENUM.FEMALE,
+      icon: 'female-outline',
+      title: '여성',
+    },
+    {
+      gender: GENDER_ENUM.OTHER,
+      icon: 'male-female-outline',
+      title: '기타',
+    },
   ];
 
   return (
@@ -37,6 +44,12 @@ const OnboardingGenderPage = () => {
               setGender(genderChoice.gender);
             }}
           >
+            <Icon
+              // @ts-expect-error Using only appropriate icon names
+              name={genderChoice.icon}
+              size={w(14)}
+              color={isSelected ? colors.white : colors.black}
+            />
             <Text style={{ ...styles.choiceText, color: isSelected ? colors.white : colors.black }}>
               {genderChoice.title}
             </Text>
@@ -46,6 +59,7 @@ const OnboardingGenderPage = () => {
       <TouchableOpacity
         style={{ ...styles.nextButton, opacity: gender ? 1 : 0.3 }}
         disabled={!gender}
+        onPress={onPressNext}
       >
         <Text style={styles.nextButtonText}>다음</Text>
       </TouchableOpacity>
@@ -58,16 +72,18 @@ const styles = StyleSheet.create({
     width: w(343),
     alignItems: 'center',
     marginTop: h(36),
+    marginHorizontal: w(16),
   },
   title: {
     ...globalStyles.headline2Bold,
     color: colors.black,
     textAlign: 'center',
-    marginBottom: h(16),
+    marginBottom: h(24),
   },
   choiceText: {
     ...globalStyles.body1Regular,
     color: colors.black,
+    marginLeft: w(8),
   },
   choiceButton: {
     backgroundColor: colors.gray100,
@@ -76,6 +92,8 @@ const styles = StyleSheet.create({
     borderRadius: w(8),
     width: w(343),
     marginBottom: h(8),
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   nextButton: {
     width: w(343),
