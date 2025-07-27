@@ -126,6 +126,10 @@ const usages = StyleSheet.create({
     ...fonts.bold,
     fontSize: width * 16,
   },
+  body1Semibold: {
+    ...fonts.semiBold,
+    fontSize: width * 16,
+  },
   body1Regular: {
     ...fonts.regular,
     fontSize: width * 16,

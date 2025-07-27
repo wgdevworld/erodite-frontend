@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     marginBottom: h(24),
   },
   choiceText: {
-    ...globalStyles.body1Regular,
+    ...globalStyles.body1Semibold,
     color: colors.black,
     marginLeft: w(8),
   },
