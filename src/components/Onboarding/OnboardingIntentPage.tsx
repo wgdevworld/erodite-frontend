@@ -11,7 +11,7 @@ type IntentChoices = {
 };
 
 const OnboardingIntentPage = () => {
-  const { selectedIntent, setSelectedIntent } = useOnboarding();
+  const { selectedIntent, setSelectedIntent, onPressNext } = useOnboarding();
   const intentChoices: IntentChoices[] = [
     {
       title: '그냥 궁금해서 왔어요',
@@ -82,6 +82,7 @@ const OnboardingIntentPage = () => {
       <TouchableOpacity
         style={{ ...styles.nextButton, opacity: canProceed ? 1 : 0.3 }}
         disabled={!canProceed}
+        onPress={onPressNext}
       >
         <Text style={styles.nextButtonText}>다음</Text>
       </TouchableOpacity>
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
     marginBottom: h(24),
   },
   choiceText: {
-    ...globalStyles.body1Regular,
+    ...globalStyles.body1Semibold,
     color: colors.black,
   },
   choiceButton: {

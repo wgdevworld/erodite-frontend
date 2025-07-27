@@ -8,6 +8,7 @@ import OnboardingGenderPage from '../components/Onboarding/OnboardingGenderPage'
 import OnboardingBirthdayPage from '../components/Onboarding/OnboardingBirthdayPage';
 import { useOnboarding } from '../context/OnboardingContext';
 import OnboardingIntentPage from '../components/Onboarding/OnboardingIntentPage';
+import OnboardingCuriosityPage from '../components/Onboarding/OnboardingCuriosityPage';
 
 enum ONBOARDING_PAGE_ENUM {
   BIRTHDAY = 'birthday',
@@ -37,6 +38,7 @@ const OnboardingMain = () => {
       component: <OnboardingGenderPage />,
     },
     { page: ONBOARDING_PAGE_ENUM.INTENT, component: <OnboardingIntentPage /> },
+    { page: ONBOARDING_PAGE_ENUM.CURIOSITY, component: <OnboardingCuriosityPage /> },
   ];
 
   useEffect(() => {
