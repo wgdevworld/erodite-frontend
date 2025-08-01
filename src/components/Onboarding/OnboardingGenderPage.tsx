@@ -1,9 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import globalStyles, { h, w } from '../../styles/globalStyles';
 import colors from '../../styles/colors';
 import { GENDER_ENUM } from '../../types/store';
 import Icon from '@react-native-vector-icons/ionicons';
 import { useOnboarding } from '../../context/OnboardingContext';
+import assets from '../../../assets';
 
 type GenderChoices = {
   gender: GENDER_ENUM;
@@ -30,32 +31,37 @@ const OnboardingGenderPage = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>회원님의 성별을 알려주세요</Text>
-      {genderChoices.map((genderChoice) => {
-        const isSelected = gender === genderChoice.gender;
-        return (
-          <TouchableOpacity
-            style={{
-              ...styles.choiceButton,
-              backgroundColor: isSelected ? colors.red2 : colors.gray100,
-            }}
-            key={genderChoice.gender}
-            onPress={() => {
-              setGender(genderChoice.gender);
-            }}
-          >
-            <Icon
-              // @ts-expect-error Using only appropriate icon names
-              name={genderChoice.icon}
-              size={w(14)}
-              color={isSelected ? colors.white : colors.black}
-            />
-            <Text style={{ ...styles.choiceText, color: isSelected ? colors.white : colors.black }}>
-              {genderChoice.title}
-            </Text>
-          </TouchableOpacity>
-        );
-      })}
+      <View>
+        <Text style={styles.title}>회원님의 성별을 알려주세요</Text>
+        {genderChoices.map((genderChoice) => {
+          const isSelected = gender === genderChoice.gender;
+          return (
+            <TouchableOpacity
+              style={{
+                ...styles.choiceButton,
+                backgroundColor: isSelected ? colors.red2 : colors.gray100,
+              }}
+              key={genderChoice.gender}
+              onPress={() => {
+                setGender(genderChoice.gender);
+              }}
+            >
+              <Icon
+                // @ts-expect-error Using only appropriate icon names
+                name={genderChoice.icon}
+                size={w(14)}
+                color={isSelected ? colors.white : colors.black}
+              />
+              <Text
+                style={{ ...styles.choiceText, color: isSelected ? colors.white : colors.black }}
+              >
+                {genderChoice.title}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+      <Image source={assets.images.spin_the_wheel} style={styles.image} />
       <TouchableOpacity
         style={{ ...styles.nextButton, opacity: gender ? 1 : 0.3 }}
         disabled={!gender}
@@ -71,6 +77,7 @@ const styles = StyleSheet.create({
   container: {
     width: w(343),
     alignItems: 'center',
+    justifyContent: 'space-between',
     marginTop: h(36),
     marginHorizontal: w(16),
   },
@@ -97,8 +104,7 @@ const styles = StyleSheet.create({
   },
   nextButton: {
     width: w(343),
-    position: 'absolute',
-    bottom: h(58),
+    marginBottom: h(58),
     borderRadius: w(24),
     paddingHorizontal: w(16),
     paddingVertical: h(16),
@@ -107,6 +113,11 @@ const styles = StyleSheet.create({
   nextButtonText: {
     ...globalStyles.body1Bold,
     textAlign: 'center',
+  },
+  image: {
+    alignSelf: 'center',
+    width: w(163),
+    height: w(163),
   },
 });
 

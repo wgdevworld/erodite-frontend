@@ -1,8 +1,9 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import globalStyles, { h, w } from '../../styles/globalStyles';
 import colors from '../../styles/colors';
 import { useOnboarding } from '../../context/OnboardingContext';
 import { useState } from 'react';
+import assets from '../../../assets';
 
 const OnboardingBirthdayPage = () => {
   const { onPressNext, setDateOfBirth } = useOnboarding();
@@ -76,6 +77,7 @@ const OnboardingBirthdayPage = () => {
           maxLength={2}
         />
       </View>
+      <Image source={assets.images.birthday_cake} style={styles.image} />
       <View style={styles.bottomContainer}>
         {isDoneInputBirthday && !isValidBirthday() && (
           <Text style={styles.wrongBirthdayText}>올바른 생년월일을 입력해주세요</Text>
@@ -172,6 +174,13 @@ const styles = StyleSheet.create({
   nextButtonText: {
     ...globalStyles.body1Bold,
     textAlign: 'center',
+  },
+  image: {
+    position: 'absolute',
+    marginTop: '60%',
+    alignSelf: 'center',
+    width: w(163),
+    height: w(163),
   },
 });
 
