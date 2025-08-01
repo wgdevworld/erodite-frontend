@@ -15,6 +15,13 @@ export type AssetImages = {
     safety_helmet: ImageSourcePropType;
     two_characters_hugging: ImageSourcePropType;
     future: ImageSourcePropType;
+    brain: ImageSourcePropType;
+    shield: ImageSourcePropType;
+    female_symbol: ImageSourcePropType;
+    male_symbol: ImageSourcePropType;
+    virus: ImageSourcePropType;
+    heart: ImageSourcePropType;
+    rainbow: ImageSourcePropType;
   };
 };
 
@@ -33,6 +40,13 @@ const assets: AssetImages = {
     safety_helmet: require('./images/safety-helmet.png'),
     two_characters_hugging: require('./images/two-characters-hugging.png'),
     future: require('./images/future.png'),
+    brain: require('./images/brain.png'),
+    shield: require('./images/shield.png'),
+    female_symbol: require('./images/female-symbol.png'),
+    male_symbol: require('./images/male-symbol.png'),
+    virus: require('./images/virus.png'),
+    heart: require('./images/heart.png'),
+    rainbow: require('./images/rainbow.png'),
   },
 };
 

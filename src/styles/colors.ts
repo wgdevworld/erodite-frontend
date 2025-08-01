@@ -22,4 +22,6 @@ const colors = {
   red7: '#ec9392',
 };
 
+export const gradient = { whiteButton: ['#F2F2F200', '#F2F2F2'] };
+
 export default colors;
