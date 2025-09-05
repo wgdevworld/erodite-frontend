@@ -1,45 +1,17 @@
-import React, { JSX, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { FlatList, StyleSheet, TouchableOpacity, View, Animated } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { h, w } from '../styles/globalStyles';
 import Icon from '@react-native-vector-icons/ionicons';
 import colors from '../styles/colors';
-import OnboardingGenderPage from '../components/Onboarding/OnboardingGenderPage';
-import OnboardingBirthdayPage from '../components/Onboarding/OnboardingBirthdayPage';
-import { useOnboarding } from '../context/OnboardingContext';
-import OnboardingIntentPage from '../components/Onboarding/OnboardingIntentPage';
-import OnboardingCuriosityPage from '../components/Onboarding/OnboardingCuriosityPage';
-
-enum ONBOARDING_PAGE_ENUM {
-  BIRTHDAY = 'birthday',
-  GENDER = 'gender',
-  NICKNAME = 'nickname',
-  INTENT = 'intent',
-  CURIOSITY = 'curiosity',
-  NOTIFICATIONS = 'notifications',
-}
-
-type OnboardingPage = {
-  page: ONBOARDING_PAGE_ENUM;
-  component: JSX.Element;
-};
+import { OnboardingPage, useOnboarding } from '../context/OnboardingContext';
 
 const OnboardingMain = () => {
   const insets = useSafeAreaInsets();
   const progress = useRef(new Animated.Value(1)).current;
   const flatListRef = useRef<FlatList>(null);
 
-  const { curPage, onPressBack } = useOnboarding();
-
-  const onboardingPages: OnboardingPage[] = [
-    { page: ONBOARDING_PAGE_ENUM.BIRTHDAY, component: <OnboardingBirthdayPage /> },
-    {
-      page: ONBOARDING_PAGE_ENUM.GENDER,
-      component: <OnboardingGenderPage />,
-    },
-    { page: ONBOARDING_PAGE_ENUM.INTENT, component: <OnboardingIntentPage /> },
-    { page: ONBOARDING_PAGE_ENUM.CURIOSITY, component: <OnboardingCuriosityPage /> },
-  ];
+  const { onboardingPages, curPage, onPressBack } = useOnboarding();
 
   useEffect(() => {
     const totalPages = onboardingPages.length - 1 || 1;
